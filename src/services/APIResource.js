@@ -21,6 +21,9 @@ class ApiResource {
       if (window.location.hostname === "localhost") {
         baseUrl = process.env.NEXT_PUBLIC_DEV_BASE_URL;
         tenantUrl = process.env.NEXT_PUBLIC_DEV_TENANT_URL;
+      } else if (window.location.hostname === "ttos-dev-1.vercel.app") {
+        baseUrl = process.env.NEXT_PUBLIC_DEV1_BASE_URL;
+        tenantUrl = process.env.NEXT_PUBLIC_DEV1_TENANT_URL;
       } else {
         let hostname = window.location.hostname;
         baseUrl = process.env.NEXT_PUBLIC_BASE_URL.replace(
@@ -50,6 +53,12 @@ class ApiResource {
       if (window.location.hostname === "localhost") {
         const API_key = process.env.NEXT_PUBLIC_DEV_API_KEY;
         const secret_key = process.env.NEXT_PUBLIC_DEV_SECRET_KEY;
+        const api_secret = API_key + ":" + secret_key;
+        const base64 = btoa(api_secret);
+        request.headers["x-client-key"] = "Basic " + base64;
+      } else if (window.location.hostname === "ttos-dev-1.vercel.app") {
+        const API_key = process.env.NEXT_PUBLIC_DEV1_API_KEY;
+        const secret_key = process.env.NEXT_PUBLIC_DEV1_SECRET_KEY;
         const api_secret = API_key + ":" + secret_key;
         const base64 = btoa(api_secret);
         request.headers["x-client-key"] = "Basic " + base64;
