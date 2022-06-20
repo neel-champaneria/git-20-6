@@ -147,7 +147,9 @@ const OrderPage = () => {
               {order && (
                 <>
                   <SingleOrder order={order} />
-                  {qrConfig.isPAM ? (
+                  {qrConfig.isPAM &&
+                  (qrConfig.qrPaymentType == "ONLINE" ||
+                    qrConfig.qrPaymentType == "BOTH") ? (
                     <>
                       <button
                         className="btn red-btn w100 mt15 medium_sizebtn"

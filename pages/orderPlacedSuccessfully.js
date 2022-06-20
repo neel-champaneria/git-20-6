@@ -5,6 +5,7 @@ import { cleanCartAction } from "../src/actions/OrderingCartAction";
 import { useRouter } from "next/router";
 
 const OrderPlacedSuccessfully = () => {
+  const qrConfig = useSelector((state) => state.appReducer?.qrConfig);
   const qrInfo = useSelector((state) => state.QrReducer);
   const dispatch = useDispatch();
   const router = useRouter();
@@ -28,20 +29,24 @@ const OrderPlacedSuccessfully = () => {
           <p className="medium_para bg-green text-center">
             Your order is now being processed.
           </p>
-          <p className="medium_para mb70">
-            Pay at the counter after finishing your delicious meal.
-          </p>
+          {qrConfig.isPAM ? (
+            <p className="medium_para mb70">
+              Pay at the counter after finishing your delicious meal.
+            </p>
+          ) : null}
         </div>
         <img src="/big-eatery.png" className="mb30" />
 
-        <button
-          className="btn red-btn w100 big_btn"
-          onClick={() => {
-            router.replace("/order");
-          }}
-        >
-          MY ORDERS
-        </button>
+        {qrConfig.isPAM ? (
+          <button
+            className="btn red-btn w100 big_btn"
+            onClick={() => {
+              router.replace("/order");
+            }}
+          >
+            MY ORDERS
+          </button>
+        ) : null}
         <Link href="/">
           <p className="item_title mt15 font-bold">Back To Home</p>
         </Link>

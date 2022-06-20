@@ -6,6 +6,7 @@ import { cleanCartAction } from "../src/actions/OrderingCartAction";
 
 const PaymentSuccess = () => {
   const qrInfo = useSelector((state) => state.QrReducer);
+  const qrConfig = useSelector((state) => state.appReducer?.qrConfig);
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -27,19 +28,23 @@ const PaymentSuccess = () => {
           <p className="title-font mb20">
             Thank you! You have completed your payment.
           </p>
-          <p className="medium_para bg-green text-center">
-            Your order is now being processed.
-          </p>
+          {!qrConfig.isPAM ? (
+            <p className="medium_para bg-green text-center">
+              Your order is now being processed.
+            </p>
+          ) : null}
         </div>
 
-        <button
-          className="btn red-btn w100 big_btn"
-          onClick={() => {
-            router.replace("/order");
-          }}
-        >
-          MY ORDERS
-        </button>
+        {!qrConfig.isPAM ? (
+          <button
+            className="btn red-btn w100 big_btn"
+            onClick={() => {
+              router.replace("/order");
+            }}
+          >
+            MY ORDERS
+          </button>
+        ) : null}
         <Link href="/">
           <p className="item_title mt15 font-bold">Back To Home</p>
         </Link>

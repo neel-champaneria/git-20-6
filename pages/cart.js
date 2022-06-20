@@ -121,7 +121,7 @@ const CartPage = () => {
       totalTax,
       discount,
       total,
-      paymentMethod: qrConfig.isPAM ? "CAP" : "CRP",
+      paymentMethod: qrConfig.isPAM ? "PAM" : "PPO",
       deliveryZoneId: 0,
       deliveryFee,
       orderItems,
