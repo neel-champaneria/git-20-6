@@ -117,10 +117,7 @@ export const checkOutTTOSAction = (data, qrId) => {
     const resp = await checkoutTTOSService(data, qrId);
 
     if (resp.status) {
-      if (
-        data.paymentMethod === CARD_DELIVERY ||
-        data.paymentMethod === CARD_PICKUP
-      ) {
+      if (data.paymentMethod === "PPO") {
         if (resp.orderAccepted && !qrConfig.isPAM) {
           localStorage.setItem("checkoutTime", -1);
           const paymentProviderName = Object.keys(paymentProvider)[0];
